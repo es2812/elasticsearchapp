@@ -1,0 +1,18 @@
+
+       No.: unique identifier of the wine 
+     Grape: grape varietal from which the wine is made 
+    Winery: maker of the wine (usually a winery name)
+Appelation: origin of the grapes 
+     State: state of the grapes' origin 
+      Name: name of the wine
+      Year: year of the wine vintage
+     Price: price of one bottle of wine in (whole) US dollars
+     Score: Wine Spectator magazine rating of the wine on the 100 point scale
+     Cases: number of cases of the wine produced by its maker
+     Color: color of the wine 
+     isAVA: a flag specifying whether the region is recognized as an American
+            Viticultural Area (AVA) by federal regulations.
+     Drink: drinking advice
+
+Drinking advice is simplified. Either the field contains the value 'now' which means that wine can be enjoyed to its fullest potential at the moment it was rated by the Wine Spectator magazine, or it contains a year in which the wine is predicted to reach its full potential.
+
