@@ -84,7 +84,7 @@ mapinn = { "properties" : {
     "Code" : { "type" : "long" },
     "CheckIn" : { "type" : "date",
                   "format" : "dd-MMM-yy"},
-    "CheckIn" : { "type" : "date",
+    "CheckOut" : { "type" : "date",
                   "format" : "dd-MMM-yy"},
     "Rate" : { "type" : "double" },
     "Adults" : { "type" : "integer" },
