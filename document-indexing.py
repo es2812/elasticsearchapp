@@ -143,19 +143,19 @@ uploadBulk(pathmar,ELASTIC,"maraton")
 #             NORTE DATASET
 # """
 
-# pathrootnorte = os.path.join(path_script,"data/norte/")
+pathrootnorte = os.path.join(path_script,"data/norte/")
 
-# mapnorte = { "properties" : {
-#     "docid" : { "type" : "long" },
-#     "fecha" : { "type" : "date",
-#                   "format" : "dd-mm-yyyy"}
-#     }
-# }
+mapnorte = { "properties" : {
+    "docid" : { "type" : "long" },
+    "fecha" : { "type" : "date",
+                  "format" : "dd-mm-yyyy"}
+    }
+}
 
-# createIndex(ELASTIC,"norte",mapnorte)
+createIndex(ELASTIC,"norte",mapnorte)
 
-# for dir,_,files in os.walk(pathrootnorte): 
-#     #los ficheros se encuentran en múltiples directorios, los recorremos todos y lanzamos un bulk 
-#     # por cada fichero json encontrados
-#     for file in files:
-#         uploadBulk(os.path.join(dir,file),ELASTIC,"norte")
+for dir,_,files in os.walk(pathrootnorte): 
+    #los ficheros se encuentran en múltiples directorios, los recorremos todos y lanzamos un bulk 
+    # por cada fichero json encontrados
+    for file in files:
+        uploadBulk(os.path.join(dir,file),ELASTIC,"norte")
