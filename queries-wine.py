@@ -17,14 +17,14 @@ ELASTIC = "http://localhost:9200" #dirección en la que está funcionando elasti
 print("Mejores 5 vinos de cada color:")
 print("")
 
-query = {"query":
-            {
-                "term" : { "Color" : "red" }
-            },
-        "sort" : {
-            "Score" : "desc"
-        },
-        "size": 5
+query = {
+    "size" : 5,
+    "query":{
+        "match" : { "Color" : "Red" }
+    },
+    "sort" : {
+        "Score" : "desc"
+    }
 }
 
 reds = json.loads(requests.get(ELASTIC+"/wine/_search",json=query).text)["hits"]["hits"]
@@ -36,14 +36,14 @@ for i, w in enumerate(reds):
     print("#%d: %s, %d/100" % (i+1, wine["Name"], wine["Score"]))
 print("")
 
-query = {"query":
-            {
-                "term" : { "Color" : "white" }
-            },
-        "sort" : {
-            "Score" : "desc"
-        },
-        "size": 5
+query = {
+    "size" : 5,
+    "query": {
+        "match" : { "Color" : "White" }
+    },
+    "sort" : {
+        "Score" : "desc"
+    }
 }
 
 whites = json.loads(requests.get(ELASTIC+"/wine/_search",json=query).text)["hits"]["hits"]
@@ -63,25 +63,25 @@ print("Precio medio y puntuación máxima por tipo de uva:")
 print("")
 
 query = { "aggs" : {
-                "uvas" : {
-                    "terms" : {
-                        "field" : "Grape.keyword"
+            "uvas" : {
+                "terms" : {
+                    "field" : "Grape.keyword"
+                },
+                "aggs":{
+                    "precio-medio-por-uva": {
+                        "avg" : {
+                            "field" : "Price"
+                        }
                     },
-                    "aggs":{
-                        "precio-medio-por-uva": {
-                            "avg" : {
-                                "field" : "Price"
-                            }
-                        },
-                        "puntuacion-maxima-por-uva" : {
-                            "max" : {
-                                "field" : "Score"
-                            }
+                    "puntuacion-maxima-por-uva" : {
+                        "max" : {
+                            "field" : "Score"
                         }
                     }
-                } 
+                }
+            } 
+        }
     }
-}
 
 aggs = json.loads(requests.get(ELASTIC+"/wine/_search",json=query).text)["aggregations"]
 
@@ -100,7 +100,9 @@ for obj in uvas:
 print("Número de vinos y precio medio en vinos de años anteriores a 2007:")
 print("")
 
-query = {"query":
+query = {
+    "size": 0,
+    "query":
             {
                 "range" : { "Year" : {
                         "lt" : 2007
